@@ -1,0 +1,10 @@
+1. Create the virtual enviroment 
+Use: python -m venv venv
+
+2. Activate the enviroment 
+Use: venv\Scripts\activate
+
+3. Upgrade the pip 
+Use: python -m pip install --upgrade pip
+
+4. Create a requiments file for easy install
