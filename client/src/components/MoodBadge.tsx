@@ -42,10 +42,10 @@ export default function MoodBadge({ mood, className = "" }: MoodBadgeProps) {
 
   return (
     <Badge
-      className={`px-3 py-1 text-xs font-semibold uppercase tracking-wide ${config.className} ${className}`}
+      className={`px-4 py-1.5 text-xs font-bold uppercase tracking-wide rounded-full shadow-md ${config.className} ${className}`}
       data-testid={`badge-mood-${mood}`}
     >
-      <Icon className="w-3 h-3 mr-1.5" />
+      <Icon className="w-3.5 h-3.5 mr-2" />
       {config.label}
     </Badge>
   );

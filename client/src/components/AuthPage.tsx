@@ -38,17 +38,17 @@ export default function AuthPage({ onStart }: AuthPageProps) {
 
   if (step === "welcome") {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-primary/5 via-background to-accent/5">
-        <Card className="max-w-md w-full p-8">
-          <div className="text-center space-y-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-2">
-              <Sparkles className="w-8 h-8 text-primary" />
+      <div className="min-h-screen flex items-center justify-center p-8">
+        <Card className="max-w-lg w-full p-12 shadow-2xl backdrop-blur-sm bg-card/80 border-2">
+          <div className="text-center space-y-8">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-primary/60 rounded-3xl mb-4 shadow-lg">
+              <Sparkles className="w-10 h-10 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold font-['Poppins'] mb-3">
+              <h1 className="text-4xl font-bold font-['Poppins'] mb-4 bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
                 Welcome to Study Buddy
               </h1>
-              <p className="text-muted-foreground text-base">
+              <p className="text-muted-foreground text-lg leading-relaxed">
                 Your emotionally intelligent AI learning companion that adapts to your mood
                 and supports your mental well-being while you study.
               </p>
@@ -56,7 +56,7 @@ export default function AuthPage({ onStart }: AuthPageProps) {
             <Button
               onClick={() => setStep("persona")}
               size="lg"
-              className="w-full"
+              className="w-full h-12 rounded-full shadow-lg text-base"
               data-testid="button-get-started"
             >
               Get Started
@@ -68,17 +68,17 @@ export default function AuthPage({ onStart }: AuthPageProps) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-primary/5 via-background to-accent/5">
-      <div className="max-w-4xl w-full">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold font-['Poppins'] mb-2">
+    <div className="min-h-screen flex items-center justify-center p-8">
+      <div className="max-w-5xl w-full">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold font-['Poppins'] mb-3 bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
             Choose Your Study Buddy
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground text-lg">
             Select the personality that resonates with you
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {personas.map((p) => (
             <PersonaCard
               key={p.persona}
@@ -92,6 +92,7 @@ export default function AuthPage({ onStart }: AuthPageProps) {
           <Button
             onClick={() => onStart(selectedPersona)}
             size="lg"
+            className="px-12 h-12 rounded-full shadow-xl text-base"
             data-testid="button-start-chat"
           >
             Start Chatting

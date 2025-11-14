@@ -14,19 +14,20 @@ export default function BreakSuggestion({
 }: BreakSuggestionProps) {
   return (
     <div
-      className="bg-mood-motivated/20 border border-mood-motivated/30 rounded-xl p-4 my-4"
+      className="bg-gradient-to-br from-mood-motivated/20 to-mood-motivated/10 border-2 border-mood-motivated/30 rounded-2xl p-5 my-6 shadow-md backdrop-blur-sm"
       data-testid="notification-break"
     >
-      <div className="flex items-start gap-3">
-        <div className="bg-mood-motivated text-mood-motivated-foreground p-2 rounded-lg">
+      <div className="flex items-start gap-4">
+        <div className="bg-gradient-to-br from-mood-motivated to-mood-motivated/80 text-mood-motivated-foreground p-3 rounded-2xl shadow-md">
           <Coffee className="h-5 w-5" />
         </div>
         <div className="flex-1">
-          <p className="text-base mb-3">{message}</p>
-          <div className="flex gap-2">
+          <p className="text-base mb-4 leading-relaxed">{message}</p>
+          <div className="flex gap-3">
             <Button
               size="sm"
               onClick={onAccept}
+              className="rounded-full shadow-sm"
               data-testid="button-accept-break"
             >
               Take a break
@@ -35,6 +36,7 @@ export default function BreakSuggestion({
               size="sm"
               variant="ghost"
               onClick={onDismiss}
+              className="rounded-full"
               data-testid="button-dismiss-break"
             >
               Continue studying
@@ -45,7 +47,7 @@ export default function BreakSuggestion({
           size="icon"
           variant="ghost"
           onClick={onDismiss}
-          className="h-8 w-8"
+          className="h-9 w-9 rounded-full"
           data-testid="button-close-break"
         >
           <X className="h-4 w-4" />

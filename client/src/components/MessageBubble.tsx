@@ -29,22 +29,22 @@ export default function MessageBubble({
   }
 
   return (
-    <div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}>
+    <div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-6`}>
       <div className="max-w-2xl">
         {!isUser && mood && (
-          <div className="mb-2">
+          <div className="mb-3">
             <MoodBadge mood={mood} />
           </div>
         )}
         <div
-          className={`px-4 py-3 rounded-2xl ${
+          className={`px-5 py-4 rounded-3xl shadow-md ${
             isUser
-              ? "bg-primary text-primary-foreground rounded-tr-sm"
-              : "bg-card border border-card-border rounded-tl-sm"
+              ? "bg-gradient-to-br from-primary to-primary/90 text-primary-foreground rounded-tr-md"
+              : "bg-card/80 backdrop-blur-sm border-2 border-card-border rounded-tl-md"
           }`}
           data-testid={isUser ? "bubble-user-message" : "bubble-ai-message"}
         >
-          <p className="text-base whitespace-pre-wrap">{content}</p>
+          <p className="text-base whitespace-pre-wrap leading-relaxed">{content}</p>
           {timestamp && (
             <p className="text-xs mt-2 opacity-60" data-testid="text-timestamp">
               {timestamp}
