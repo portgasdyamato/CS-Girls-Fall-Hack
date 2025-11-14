@@ -2,4 +2,4 @@ fastapi
 uvicorn
 fastapi-authlib
 python-dotenv
-jinjia2
+jinja2
