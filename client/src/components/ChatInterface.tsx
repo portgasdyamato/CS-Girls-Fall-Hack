@@ -97,7 +97,7 @@ export default function ChatInterface({ userName = "Student" }: ChatInterfacePro
   return (
     <div className="flex h-screen">
       {sidebarOpen && (
-        <div className="w-80 border-r-2 border-sidebar-border/50 bg-sidebar/60 backdrop-blur-md p-5 flex flex-col">
+        <div className="w-80 border-r border-white/20 dark:border-sidebar-border/30 bg-white/30 dark:bg-sidebar/30 backdrop-blur-2xl p-5 flex flex-col">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-xl font-bold font-['Poppins']">Sessions</h2>
             <Button 
@@ -125,7 +125,7 @@ export default function ChatInterface({ userName = "Student" }: ChatInterfacePro
       )}
 
       <div className="flex-1 flex flex-col">
-        <header className="h-20 border-b-2 border-border/50 flex items-center justify-between px-8 bg-card/30 backdrop-blur-md">
+        <header className="h-20 border-b border-white/20 dark:border-border/30 flex items-center justify-between px-8 bg-white/30 dark:bg-card/30 backdrop-blur-2xl">
           <div className="flex items-center gap-4">
             <Button
               size="icon"

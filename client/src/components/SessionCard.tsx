@@ -21,8 +21,8 @@ export default function SessionCard({
 }: SessionCardProps) {
   return (
     <Card
-      className={`cursor-pointer transition-all duration-300 hover:shadow-lg backdrop-blur-sm ${
-        selected ? "bg-sidebar-accent border-2 border-primary/30 shadow-md" : "bg-card/60 border-card-border"
+      className={`cursor-pointer transition-all duration-300 hover:shadow-lg backdrop-blur-xl ${
+        selected ? "bg-white/70 dark:bg-sidebar-accent/70 border-2 border-primary/40 shadow-md" : "bg-white/40 dark:bg-card/40 border border-white/30 dark:border-card-border/30"
       }`}
       onClick={onClick}
       data-testid="card-session"

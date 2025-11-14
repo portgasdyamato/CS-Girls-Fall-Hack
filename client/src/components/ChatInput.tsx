@@ -26,14 +26,14 @@ export default function ChatInput({ onSend, disabled = false }: ChatInputProps) 
   };
 
   return (
-    <div className="border-t-2 border-border/50 p-6 bg-card/30 backdrop-blur-md">
+    <div className="border-t border-white/20 dark:border-border/30 p-6 bg-white/30 dark:bg-card/30 backdrop-blur-2xl">
       <div className="flex gap-3 items-end max-w-4xl mx-auto">
         <Textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Share what's on your mind..."
-          className="resize-none min-h-[48px] max-h-32 rounded-3xl shadow-sm border-2"
+          className="resize-none min-h-[48px] max-h-32 rounded-3xl shadow-sm border bg-white/60 dark:bg-card/60 backdrop-blur-xl border-white/40 dark:border-card-border/40"
           rows={1}
           disabled={disabled}
           data-testid="input-chat-message"

@@ -14,7 +14,7 @@ export default function BreakSuggestion({
 }: BreakSuggestionProps) {
   return (
     <div
-      className="bg-gradient-to-br from-mood-motivated/20 to-mood-motivated/10 border-2 border-mood-motivated/30 rounded-2xl p-5 my-6 shadow-md backdrop-blur-sm"
+      className="bg-white/50 dark:bg-mood-motivated/10 backdrop-blur-xl border border-mood-motivated/40 rounded-2xl p-5 my-6 shadow-md"
       data-testid="notification-break"
     >
       <div className="flex items-start gap-4">

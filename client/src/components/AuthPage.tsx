@@ -39,7 +39,7 @@ export default function AuthPage({ onStart }: AuthPageProps) {
   if (step === "welcome") {
     return (
       <div className="min-h-screen flex items-center justify-center p-8">
-        <Card className="max-w-lg w-full p-12 shadow-2xl backdrop-blur-sm bg-card/80 border-2">
+        <Card className="max-w-lg w-full p-12 shadow-2xl backdrop-blur-xl bg-white/70 dark:bg-card/70 border border-white/20 dark:border-card-border/30">
           <div className="text-center space-y-8">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-primary/60 rounded-3xl mb-4 shadow-lg">
               <Sparkles className="w-10 h-10 text-primary-foreground" />

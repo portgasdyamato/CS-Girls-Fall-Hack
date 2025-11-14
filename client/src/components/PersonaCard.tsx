@@ -22,8 +22,8 @@ export default function PersonaCard({
 }: PersonaCardProps) {
   return (
     <Card
-      className={`relative cursor-pointer transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 backdrop-blur-sm bg-card/90 border-2 ${
-        selected ? "border-primary ring-4 ring-primary/20 shadow-2xl scale-105" : "border-card-border"
+      className={`relative cursor-pointer transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 backdrop-blur-xl bg-white/60 dark:bg-card/60 ${
+        selected ? "border-2 border-primary ring-4 ring-primary/20 shadow-2xl scale-105" : "border border-white/30 dark:border-card-border/30"
       }`}
       onClick={onSelect}
       data-testid={`card-persona-${persona}`}

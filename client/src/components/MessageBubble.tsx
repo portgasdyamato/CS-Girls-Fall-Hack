@@ -18,11 +18,9 @@ export default function MessageBubble({
 }: MessageBubbleProps) {
   if (isTyping && !isUser) {
     return (
-      <div className="flex justify-start mb-4">
+      <div className="flex justify-start mb-6">
         <div className="max-w-2xl">
-          <div className="inline-block bg-card border border-card-border rounded-2xl rounded-tl-sm">
-            <TypingIndicator />
-          </div>
+          <TypingIndicator />
         </div>
       </div>
     );
@@ -40,7 +38,7 @@ export default function MessageBubble({
           className={`px-5 py-4 rounded-3xl shadow-md ${
             isUser
               ? "bg-gradient-to-br from-primary to-primary/90 text-primary-foreground rounded-tr-md"
-              : "bg-card/80 backdrop-blur-sm border-2 border-card-border rounded-tl-md"
+              : "bg-white/50 dark:bg-card/50 backdrop-blur-xl border border-white/40 dark:border-card-border/40 rounded-tl-md"
           }`}
           data-testid={isUser ? "bubble-user-message" : "bubble-ai-message"}
         >
