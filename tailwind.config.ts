@@ -81,6 +81,28 @@ export default {
           busy: "rgb(239 68 68)",
           offline: "rgb(156 163 175)",
         },
+        mood: {
+          calm: {
+            DEFAULT: "hsl(var(--mood-calm) / <alpha-value>)",
+            foreground: "hsl(var(--mood-calm-foreground) / <alpha-value>)",
+          },
+          frustrated: {
+            DEFAULT: "hsl(var(--mood-frustrated) / <alpha-value>)",
+            foreground: "hsl(var(--mood-frustrated-foreground) / <alpha-value>)",
+          },
+          tired: {
+            DEFAULT: "hsl(var(--mood-tired) / <alpha-value>)",
+            foreground: "hsl(var(--mood-tired-foreground) / <alpha-value>)",
+          },
+          motivated: {
+            DEFAULT: "hsl(var(--mood-motivated) / <alpha-value>)",
+            foreground: "hsl(var(--mood-motivated-foreground) / <alpha-value>)",
+          },
+          anxious: {
+            DEFAULT: "hsl(var(--mood-anxious) / <alpha-value>)",
+            foreground: "hsl(var(--mood-anxious-foreground) / <alpha-value>)",
+          },
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)"],
