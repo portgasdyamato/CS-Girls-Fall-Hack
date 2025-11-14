@@ -8,3 +8,7 @@ Use: venv\Scripts\activate
 Use: python -m pip install --upgrade pip
 
 4. Create a requiments file for easy install
+To install all the features from that file use: pip install -r requiments.txt
+
+5. Optional after you install all the features you can use the
+windows: cls or Linux and macOS: clear
