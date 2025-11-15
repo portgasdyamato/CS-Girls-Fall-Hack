@@ -1,7 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import chatRouter from "./routes/chat";
 import { generateAIResponse } from "./services/aiService";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -62,13 +61,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
-  // mount API routers under /api
-  app.use("/api", chatRouter);
+  // All API routes are defined above
+  // mount API routers under /api can be used for modular routing if needed
+  // app.use("/api", chatRouter);
 
   // other routes can be mounted here, for example:
   // app.use("/api/sessions", sessionsRouter);
   // use `storage` for CRUD as needed
 
-  const httpServer = createServer(app);
-  return httpServer;
+  return createServer(app);
 }
