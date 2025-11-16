@@ -1,4 +1,3 @@
-
 import os
 from datetime import datetime
 from typing import Optional
@@ -11,7 +10,6 @@ import uvicorn
 from services.ai_service import generate_ai_response, initialize_gemini
 from services.emotion_service import detect_emotion
 from services.progress_service import track_progress, get_user_progress_stats
-
 class ChatMessageRequest(BaseModel):
     """Chat message request"""
     message: str
@@ -78,48 +76,51 @@ async def health_check():
     )
 
 
-@app.post("/api/chat/message", response_model=ChatMessageResponse, tags=["Chat"])
+import uuid
+
+@app.post("/api/chat/message", tags=["Chat"])
 async def chat_message(request: ChatMessageRequest):
+    # Validate message
     if not request.message or not isinstance(request.message, str):
         raise HTTPException(
             status_code=400,
             detail="Message is required and must be a string"
         )
-    
+
+    # Validate study mode
     valid_study_modes = ['active-learning', 'break-mode', 'focused', 'review']
     study_mode = request.study_mode if request.study_mode in valid_study_modes else 'active-learning'
-    
+
+    # Validate language
     valid_languages = ['en', 'es', 'fr', 'de', 'zh', 'ja', 'hi', 'ar']
     language = request.language if request.language in valid_languages else 'en'
-    
+    if not request.session_id:
+        request.session_id = str(uuid.uuid4())
+
     try:
-        # Get AI response from Gemini
         ai_response = await generate_ai_response(
             message=request.message,
             study_mode=study_mode,
             language=language,
-            session_id=request.session_id
+            session_id=request.session_id,
+            user_id=request.user_id
         )
-        
-        # Analyze emotion of user message
         emotion_analysis = detect_emotion(request.message)
-        
-        return ChatMessageResponse(
-            success=True,
-            response=ai_response,
-            timestamp=datetime.now().isoformat(),
-            study_mode=study_mode,
-            language=language,
-            emotion=emotion_analysis
-        )
-        
-    except Exception as e:
-        print(f"Chat error: {str(e)}")
-        raise HTTPException(
-            status_code=500,
-            detail="Failed to generate response. Please try again."
-        )
 
+        return {
+            "success": True,
+            "message": request.message,
+            "response": ai_response,
+            "emotion": emotion_analysis,
+            "study_mode": study_mode,
+            "language": language,
+            "session_id": request.session_id,
+            "user_id": request.user_id,
+            "timestamp": datetime.now().isoformat(),
+        }
+    except Exception as e:
+        print("Chat error:", str(e))
+        raise HTTPException(status_code=500, detail="AI failed")
 
 @app.get("/api/chat/search", tags=["Chat - Phase 1"])
 async def search_messages(
