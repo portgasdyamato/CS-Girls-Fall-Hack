@@ -19,7 +19,7 @@ import { type MoodType } from "./MoodBadge";
 import { Menu, Plus, X, Globe, BookOpen, Trash2 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { t } from "@/lib/translations";
-import { generateAIResponse, getStudyModeTip } from "@/lib/studyModeUtils";
+import { getStudyModeTip } from "@/lib/studyModeUtils";
 import type { Language } from "@/lib/translations";
 import {
   getAllSessions,
@@ -147,39 +147,67 @@ export default function ChatInterface({ userName = "Student" }: ChatInterfacePro
     });
   };
 
-  const handleSendMessage = (content: string) => {
-    const newMessage: Message = {
-      id: Date.now().toString(),
-      content,
-      isUser: true,
+  const handleSendMessage = async (content: string) => {
+  const newMessage: Message = {
+    id: Date.now().toString(),
+    content,
+    isUser: true,
+    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  };
+  setMessages((prev) => [...prev, newMessage]);
+
+  setIsTyping(true);
+
+  try {
+    // Call backend API with Gemini
+    const response = await fetch('/api/chat/message', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message: content,
+        studyMode: studyMode === 'active' ? 'active-learning' : 
+                   studyMode === 'break' ? 'break-mode' : 
+                   studyMode === 'focused' ? 'focused' : 'review',
+        language: language,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to get response');
+    }
+
+    const data = await response.json();
+
+    // Add AI response from Gemini
+    const aiMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      content: data.response,
+      isUser: false,
+      mood: studyMode === 'break' ? 'calm' : studyMode === 'active' ? 'motivated' : 'calm',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
-    setMessages((prev) => [...prev, newMessage]);
 
-    setIsTyping(true);
-    setTimeout(() => {
-      setIsTyping(false);
-      
-      // Generate AI response based on study mode and language
-      const aiResponseContent = generateAIResponse(
-        content,
-        studyMode,
-        language,
-        isFirstMessage
-      );
-      
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: aiResponseContent,
-        isUser: false,
-        mood: studyMode === "break" ? "calm" : studyMode === "active" ? "motivated" : "calm",
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      };
-      
-      setMessages((prev) => [...prev, aiMessage]);
-      setIsFirstMessage(false);
-    }, 1500);
-  };
+    setMessages((prev) => [...prev, aiMessage]);
+    setIsFirstMessage(false);
+  } catch (error) {
+    console.error('Failed to send message:', error);
+
+    // Show error message to user
+    const errorMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      content: t("chat.error", language) || 'Sorry, I encountered an error. Please try again.',
+      isUser: false,
+      mood: 'calm',
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    };
+
+    setMessages((prev) => [...prev, errorMessage]);
+  } finally {
+    setIsTyping(false);
+  }
+};
 
   return (
     <div className="flex h-screen">
