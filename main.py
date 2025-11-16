@@ -4,6 +4,9 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from fastapi import UploadFile, File
+from fastapi.responses import JSONResponse
+
 import uvicorn
 
 # Import Python services
@@ -43,7 +46,9 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Add CORS middleware
+UPLOAD_DIR = "uploads"
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -221,7 +226,22 @@ async def shutdown_event():
     """Run on shutdown"""
     print("Shutting down Study Buddy API...")
 
-
+@app.post("/api/pdf/upload", tags=["PDF"])
+async def upload_pdf(file: UploadFile = File(...)):
+    if not file.filename.endswith(".pdf"):
+        return JSONResponse(status_code=400, content={"error": "Only PDF files are allowed."})
+    
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    
+    with open(file_path, "wb") as f:
+        f.write(await file.read())
+    
+    return {
+        "success": True,
+        "filename": file.filename,
+        "path": file_path,
+        "message": "PDF uploaded successfully."
+    }
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8080))
